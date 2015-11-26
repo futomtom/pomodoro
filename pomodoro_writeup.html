@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pomodoro Write Up</title>
+		<link rel="stylesheet" type="text/css" href="pomodoro.css" />
+	</head>
+	
+	<body>
+		
+		<div id="title">
+			App Write-up
+		</div>
+		<div id="subtitle">
+			Pomodoro Technique by Shannon Coyne
+		</div>
+		
+		<div id="content">
+			
+			<div id="navigation">
+				<ul>
+					<li><a href="#pomodorotableviewcontroller">PomodoroTableViewController</a></li>
+					<li><a href="#addnewviewcontroller">AddNewViewController</a></li>
+					<li><a href="#pomodoroviewcontroller">PomodoroViewController</a></li>
+					<li><a href="#settingsviewcontroller">SettingsViewController</a></li>
+				</ul>
+			</div>
+			
+			<div class="screenWriteUp">
+				<img src="screen1.png" alt="PomodoroTableViewController" class="floatRight" />
+				<p><strong><a name="pomodorotableviewcontroller"></a>PomodoroTableViewController</strong></p>
+				<p>The PomodoroTableViewController works with the PomodoroModel to display the current list of pomodoro instances the user has created. Users can add new a new pomodoro using the + button in the navigation bar. (Edit was a feature I didn't get the chance to implement, unfortunately!) When the application first loads, the PomodoroTableViewController initializes the PomodoroModel (which will live for the duration of the app's life). The PomodoroModel has an initializer that loads all the user's pomodori from disk, using Core Data. Those pomodori are stored as NSManagedObjects in the model (in array pomodori), and then passed to the views that use them as Pomodoro structs. This is for convenience and to avoid having Core Data objects mucking around in the ViewControllers. Here is the structure of the Pomodoro struct:
+					
+					<p>
+						<div class="code">struct Pomodoro {</div>
+						<div class="code indent">    var name: String</div>
+						<div class="code indent">    var intervalLength: Int</div>
+						<div class="code indent">    var numIntervals: Int</div>
+						<div class="code indent">    var breakLength: Int</div>
+						<div class="code">}</div>
+					</p>
+					</p>
+				
+				<p><a href="#">top</a></p>
+			</div>
+			
+			<div class="screenWriteUp">
+				<img src="screen2.png" alt="AddNewViewController" class="floatRight" />
+				<p><strong><a name="addnewviewcontroller"></a>AddNewViewController</strong></p>
+				<p>The user can add a new pomodoro in this view. They must specify all parameters before PomodoroModel will store the values and send the notification that the change was made. Saving the pomodoro not only appends it to the pomodori array in memory, but also saves it to disk using Core Data.</p>
+				
+				<p><a href="#">top</a></p>
+			</div>
+			
+			<div class="screenWriteUp">
+				<img src="screen3.png" alt="PomodoroViewController" class="floatRight" />
+				<p><strong><a name="pomodoroviewcontroller"></a>PomodoroViewController</strong></p>
+				<p>PomodoroViewController displays the selected indexPath.row from the PomodoroTableViewController and primarily interacts with TimerModel. (It only receives a copy of the indexPath.row Pomodoro struct, because it doesn't need to do anything with the PomodoroModel.) It imports AudioToolBox to vibrate the user device at every interval and break end. (The user can specify on the Settings view whether to disable this function of the app.) </p>
+				
+				<p><a href="#">top</a></p>
+			</div>
+			
+			<div class="screenWriteUp">
+				<img src="screen4.png" alt="SettingsViewController" class="floatRight" />
+				<p><strong><a name="settingsviewcontroller"></a>SettingsViewController</strong></p>
+				<p>This is an ultra vanilla implementation of settings options. I've not implemented persistence on user settings, but I would like to try using the pList to store some simple settings. I'd also like to implement the settings bundle. Finally, I'd like to embed the settings options into a UITableView, similar to the iOS Settings app.</p>
+				
+				<p>In the near future, I'd like to implement functionality to let the user select whether to play a sound at the end of each interval/break.</p>
+				
+				<p><a href="#">top</a></p>
+			</div>
+		</div>
+		
+	</body>
+</html>
